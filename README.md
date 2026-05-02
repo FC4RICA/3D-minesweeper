@@ -2,7 +2,7 @@
 
 Classic Minesweeper reimagined on the surface of a 3D cube, playable in the browser.
 
-**[Play here]([https://3d-minesweeper-three.vercel.app/](https://threed-minesweeper.onrender.com/))**
+**[Play here](https://threed-minesweeper.onrender.com)**
 
 ## Stack
 
