@@ -4,6 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
+      args:
+        - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+        - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+    env_file:
+      - .env
     ports:
       - "5173:5173"
     volumes:
@@ -16,6 +21,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: test
+      args:
+        - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+        - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
     profiles: ["test"]
 
   app-prod:
@@ -23,6 +31,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: prod
+      args:
+        - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+        - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
     ports:
       - "80:80"
     profiles: ["prod"]
