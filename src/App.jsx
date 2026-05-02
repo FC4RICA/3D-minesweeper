@@ -51,44 +51,40 @@ const App = () => {
 
   return (
     <>
-      <div className='top'>
-        <div className='difficultyBar'>
-          {labels.map((label, i) => (
-            <button
-              key={i}
-              className='difficultyButton'
-              onClick={() => handleDifficultyChange(i)}
-              style={difficulty === i ? { color: 'white', textDecoration: 'underline' } : {}}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <div className='gameBar'>
-          <div className='gameBarComponent flagNumber'>
-            <div className='flag'>{formatFlags(flagCount)}</div>
-          </div>
-          <button className='gameBarComponent resetButton' onClick={handleReset}>
-            <span className='material-symbols-rounded'>{iconText}</span>
+      <div className='difficultyBar'>
+        {labels.map((label, i) => (
+          <button
+            key={i}
+            className='difficultyButton'
+            onClick={() => handleDifficultyChange(i)}
+            style={difficulty === i ? { color: 'white', textDecoration: 'underline' } : {}}
+          >
+            {label}
           </button>
-          <div className='gameBarComponent timer'>
-            <div className='time'>{formatTime(elapsedTime)}</div>
-          </div>
+        ))}
+      </div>
+      <div className='gameBar'>
+        <div className='gameBarComponent flagNumber'>
+          <div className='flag'>{formatFlags(flagCount)}</div>
+        </div>
+        <button className='gameBarComponent resetButton' onClick={handleReset}>
+          <span className='material-symbols-rounded'>{iconText}</span>
+        </button>
+        <div className='gameBarComponent timer'>
+          <div className='time'>{formatTime(elapsedTime)}</div>
         </div>
       </div>
-      <div className='bottom'>
-        <div className='appbox'>
-          <Canvas>
-            <GameBoard
-              key={gameKey}
-              size={DIFFICULTIES[difficulty][0]}
-              mineNum={DIFFICULTIES[difficulty][1]}
-              setFlagCount={setFlagCount}
-              setElapsedTime={setElapsedTime}
-              setIconText={setIconText}
-            />
-          </Canvas>
-        </div>
+      <div className='appbox'>
+        <Canvas>
+          <GameBoard
+            key={gameKey}
+            size={DIFFICULTIES[difficulty][0]}
+            mineNum={DIFFICULTIES[difficulty][1]}
+            setFlagCount={setFlagCount}
+            setElapsedTime={setElapsedTime}
+            setIconText={setIconText}
+          />
+        </Canvas>
       </div>
     </>
   )

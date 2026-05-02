@@ -26,6 +26,7 @@ const Side = ({ position, rotation, size, fixedCord, pCord, dict, flipDirection,
       {positions.map((pos, i) => {
         const { cord, cellName } = resolveCellName(pos, fixedCord, pCord, flipDirection)
         const cell = dict.get(cellName)
+        const flagRotation = flagged.get(cellName) ?? null
 
         return (
           <Button
@@ -37,6 +38,7 @@ const Side = ({ position, rotation, size, fixedCord, pCord, dict, flipDirection,
             text={cell.adjacentMines}
             isRevealed={revealed.has(cellName)}
             isFlagged={flagged.has(cellName)}
+            flagRotation={flagRotation}
             onCellClick={onCellClick}
             onCellFlag={onCellFlag}
           />

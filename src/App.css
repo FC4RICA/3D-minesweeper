@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code');
 
 * {
     box-sizing: border-box;
@@ -17,13 +18,8 @@ html, body, #root {
     margin: 0;  
     padding: 0;
     background: rgb(17, 18, 20);
-    font-family: 'Prompt', sans-serif;
+    font-family: "Google Sans Code", monospace;
     color: white;
-}
-
-.top {
-    background-color: black;
-    
 }
 
 .difficultyBar {
@@ -42,6 +38,7 @@ html, body, #root {
     color: rgb(217, 217, 217);
     background: none;
     user-select: none;
+    font-family: "Google Sans Code", monospace;
 }
 
 .difficultyButton:hover {
@@ -84,15 +81,7 @@ html, body, #root {
     justify-content: center;
     align-items: center;
     font-size:xx-large;
-    font-weight: 700;
     letter-spacing: 0.1em;
-}
-
-.bottom {
-    display: flex;
-    justify-content: center;
-    background-color: rgb(22, 23, 29);
-    height: 90%;
 }
 
 .appbox {
