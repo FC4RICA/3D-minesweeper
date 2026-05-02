@@ -21,7 +21,7 @@ const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlag
   const half = size / 2
 
   const [revealed, setRevealed] = useState(() => new Set())
-  const [flagged, setFlagged] = useState(() => new Set())
+  const [flagged, setFlagged] = useState(() => new Map())
   const [gameState, setGameState] = useState(GAME_STATE.IDLE)
 
   const isFirstRender = useRef(true)
@@ -110,13 +110,13 @@ const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlag
     if (!cell || cell.isRevealed) return
 
     setFlagged(prev => {
-      const next = new Set(prev)
+      const next = new Map(prev)
       if (next.has(cellName)) {
         next.delete(cellName)
         cell.isFlagged = false
       } else {
-        if (next.size >= mineNum) return prev // can't exceed mine count
-        next.add(cellName)
+        if (next.size >= mineNum) return prev
+        next.set(cellName, Math.random() * 6.28) // rotation stored here
         cell.isFlagged = true
       }
       return next
