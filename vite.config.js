@@ -10,4 +10,10 @@ export default defineConfig({
     host: true,      // expose to 0.0.0.0
     port: 5173,
   },
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './src/test/setup.js',
+  },
 })
