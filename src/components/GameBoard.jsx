@@ -34,9 +34,10 @@ const GameBoard = ({ size, mineNum, setFlagCount, setElapsedTime, setIconText })
 
   return (
     <mesh>
-      <ambientLight intensity={1.2} color={'ligntblue'} />
-      <pointLight intensity={40 * size} color={'red'} position={[size + 5, size + 5, size + 5]} />
-      <pointLight intensity={40 * size} color={'blue'} position={[-size - 5, -size - 5, -size - 5]} />
+      <ambientLight intensity={0.6} />
+      <ambientLight intensity={0.4} color={'aqua'} />
+      <pointLight intensity={80 * size} color={'red'} position={[size + 5, size + 5, size + 5]} />
+      <pointLight intensity={30 * size} color={'orange'} position={[-size - 5, -size - 5, -size - 5]} />
       <OrbitControls enablePan={false} minDistance={size} maxDistance={2 * size} />
       <MineBox
         size={size}
