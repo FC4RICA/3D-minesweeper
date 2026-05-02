@@ -3,6 +3,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: "Google Sans Code", monospace;
 }
 
 #root {
@@ -18,7 +19,6 @@ html, body, #root {
     margin: 0;  
     padding: 0;
     background: rgb(17, 18, 20);
-    font-family: "Google Sans Code", monospace;
     color: white;
 }
 
@@ -38,7 +38,6 @@ html, body, #root {
     color: rgb(217, 217, 217);
     background: none;
     user-select: none;
-    font-family: "Google Sans Code", monospace;
 }
 
 .difficultyButton:hover {
@@ -90,4 +89,127 @@ html, body, #root {
     width: 100%;
     height: 100%;
     background: rgb(35, 37, 44);
+}
+
+/* ── Leaderboard button ── */
+.leaderboardButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: darkgray;
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+
+.leaderboardButton:hover {
+  color: white;
+}
+
+/* ── Overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;                          /* top/right/bottom/left: 0 */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* ── Modal box ── */
+.modal {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 2rem;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: white;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.modal p {
+  margin: 0;
+  text-align: center;
+  color: darkgray;
+}
+
+/* ── Tabs (difficulty selector) ── */
+.modal-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-tabs button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: darkgray;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s;
+}
+
+.modal-tabs button:hover {
+  color: white;
+}
+
+/* ── Table ── */
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.modal-table th {
+  color: darkgray;
+  font-weight: normal;
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+
+.modal-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #222;
+}
+
+.modal-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Name input ── */
+.modal-input {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modal-input:focus {
+  border-color: #888;
+}
+
+.modal-input::placeholder {
+  color: #555;
+}
+
+/* ── Action buttons (skip / submit / close) ── */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
 }

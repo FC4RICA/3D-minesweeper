@@ -2,9 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import './App.css'
 import GameBoard from './components/GameBoard'
-
-const DIFFICULTIES = [[5, 25], [7, 60], [9, 111]]
-const DIFFICULTY_KEY = 'GAME_DIFFICULTY'
+import { useLeaderboard } from './hooks/useLeaderboard'
+import LeaderboardButton from './components/leaderboard/LeaderboardButton'
+import LeaderboardModal from './components/leaderboard/LeaderboardModal'
+import ScoreSubmitModal from './components/leaderboard/ScoreSubmitModal'
+import { DIFFICULTIES, DIFFICULTY_KEY, DIFFICULTY_LABELS } from './constants'
 
 const App = () => {
   const [difficulty, setDifficulty] = useState(() => {
@@ -47,12 +49,28 @@ const App = () => {
 
   const formatFlags = (n) => String(n).padStart(3, '0')
 
-  const labels = ['Beginner', 'Intermediate', 'Expert']
+  const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showSubmit, setShowSubmit] = useState(false)
+  const { scores, loading, fetchScores, submitScore } = useLeaderboard()
+
+  const handleGameOver = useCallback((result) => {
+    if (result === 'win') {
+      setIconText('sentiment_very_satisfied')
+      setShowSubmit(true)
+    } else {
+      setIconText('sentiment_very_dissatisfied')
+    }
+  }, [])
+
+  const handleSubmit = useCallback(async (name) => {
+    await submitScore(name, elapsedTime, difficulty)
+    setShowSubmit(false)
+  }, [elapsedTime, difficulty, submitScore])
 
   return (
     <>
       <div className='difficultyBar'>
-        {labels.map((label, i) => (
+        {DIFFICULTY_LABELS.map((label, i) => (
           <button
             key={i}
             className='difficultyButton'
@@ -75,6 +93,7 @@ const App = () => {
           <span className='material-symbols-rounded'>timer</span>
           <div>{formatTime(elapsedTime)}</div>
         </div>
+        <LeaderboardButton onClick={() => setShowLeaderboard(true)} />
       </div>
       <div className='appbox'>
         <Canvas>
@@ -84,10 +103,27 @@ const App = () => {
             mineNum={DIFFICULTIES[difficulty][1]}
             setFlagCount={setFlagCount}
             setElapsedTime={setElapsedTime}
-            setIconText={setIconText}
+            onGameOver={handleGameOver}
           />
         </Canvas>
       </div>
+
+      {showSubmit && (
+        <ScoreSubmitModal
+          time={elapsedTime}
+          difficulty={difficulty}
+          onSubmit={handleSubmit}
+          onSkip={() => setShowSubmit(false)}
+        />
+      )}
+      {showLeaderboard && (
+        <LeaderboardModal
+          scores={scores}
+          loading={loading}
+          fetchScores={fetchScores}
+          onClose={() => setShowLeaderboard(false)}
+        />
+      )}
     </>
   )
 }

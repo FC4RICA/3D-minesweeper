@@ -9,7 +9,7 @@ const generateChildIds = (size) => {
   return ids
 }
 
-const GameBoard = ({ size, mineNum, setFlagCount, setElapsedTime, setIconText }) => {
+const GameBoard = ({ size, mineNum, setFlagCount, setElapsedTime, onGameOver }) => {
   const dict = useRef(init(size, mineNum)).current
   const childIds = useRef(generateChildIds(size)).current
 
@@ -47,7 +47,7 @@ const GameBoard = ({ size, mineNum, setFlagCount, setElapsedTime, setIconText })
         startTimer={startTimer}
         stopTimer={stopTimer}
         setFlagCount={setFlagCount}
-        setIconText={setIconText}
+        onGameOver={onGameOver}
       />
     </mesh>
   )
