@@ -82,6 +82,7 @@ html, body, #root {
     align-items: center;
     font-size:xx-large;
     letter-spacing: 0.1em;
+    gap: 1rem;
 }
 
 .appbox {

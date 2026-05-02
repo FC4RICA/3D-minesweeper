@@ -65,13 +65,15 @@ const App = () => {
       </div>
       <div className='gameBar'>
         <div className='gameBarComponent flagNumber'>
-          <div className='flag'>{formatFlags(flagCount)}</div>
+          <span className='material-symbols-rounded'>flag</span>
+          <div>{formatFlags(flagCount)}</div>
         </div>
         <button className='gameBarComponent resetButton' onClick={handleReset}>
           <span className='material-symbols-rounded'>{iconText}</span>
         </button>
         <div className='gameBarComponent timer'>
-          <div className='time'>{formatTime(elapsedTime)}</div>
+          <span className='material-symbols-rounded'>timer</span>
+          <div>{formatTime(elapsedTime)}</div>
         </div>
       </div>
       <div className='appbox'>
