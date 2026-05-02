@@ -1,22 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Side from './Side'
+import { SIDES, GAME_STATE } from '../constants'
 
-const GAME_STATE = {
-  IDLE: 'idle',       // not started yet
-  RUNNING: 'running',
-  OVER: 'over',
-}
-
-const SIDES = [
-  { position: [0, 0, 1],  rotation: [0, 0, 0],          fixedIdx: 2, sign:  1, pCord: [0, 1], flip: [1, 1, 1]  },
-  { position: [0, 0, -1], rotation: [0, Math.PI, 0],     fixedIdx: 2, sign: -1, pCord: [0, 1], flip: [-1, 1, 1] },
-  { position: [1, 0, 0],  rotation: [0, Math.PI/2, 0],   fixedIdx: 0, sign:  1, pCord: [2, 1], flip: [1, 1, -1] },
-  { position: [-1, 0, 0], rotation: [0, -Math.PI/2, 0],  fixedIdx: 0, sign: -1, pCord: [2, 1], flip: [1, 1, 1]  },
-  { position: [0, 1, 0],  rotation: [-Math.PI/2, 0, 0],  fixedIdx: 1, sign:  1, pCord: [0, 2], flip: [1, 1, -1] },
-  { position: [0, -1, 0], rotation: [Math.PI/2, 0, 0],   fixedIdx: 1, sign: -1, pCord: [0, 2], flip: [1, 1, 1]  },
-]
-
-const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlagCount, setIconText }) => {
+const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlagCount, onGameOver }) => {
   const fixedCordVal = Math.floor(size / 2) + 1
   const half = size / 2
 
@@ -90,7 +76,7 @@ const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlag
     if (gameState === GAME_STATE.IDLE) setGameState(GAME_STATE.RUNNING)
 
     if (cell.isMined) {
-      setIconText('sentiment_very_dissatisfied')
+      onGameOver('lose')
       revealAllMines()
       setGameState(GAME_STATE.OVER)
       return
@@ -99,10 +85,10 @@ const MineBox = ({ size, mineNum, dict, childIds, startTimer, stopTimer, setFlag
     revealCells(cord)
 
     if (isWinning()) {
-      setIconText('sentiment_very_satisfied')
+      onGameOver('win')
       setGameState(GAME_STATE.OVER)
     }
-  }, [dict, flagged, gameState, revealCells, revealAllMines, isWinning, setIconText])
+  }, [dict, flagged, gameState, revealCells, revealAllMines, isWinning])
 
   const handleCellFlag = useCallback((cellName) => {
     if (gameState !== GAME_STATE.RUNNING) return
