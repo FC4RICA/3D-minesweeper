@@ -3,11 +3,22 @@ import { DIFFICULTY_LABELS } from '../../constants'
 
 const ScoreSubmitModal = ({ time, difficulty, onSubmit, onSkip }) => {
   const [name, setName] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   const formatTime = (s) => {
     const m = String(Math.floor(s / 60)).padStart(2, '0')
     const sec = String(s % 60).padStart(2, '0')
     return `${m}:${sec}`
+  }
+
+  const handleSubmit = async () => {
+    if (submitting) return          // guard against double fire
+    setSubmitting(true)
+    try {
+      await onSubmit(name.trim())
+    } finally {
+      setSubmitting(false)          // re-enable if submit failed
+    }
   }
 
   return (
@@ -26,10 +37,10 @@ const ScoreSubmitModal = ({ time, difficulty, onSubmit, onSkip }) => {
         <div className='modal-actions'>
           <button onClick={onSkip}>Skip</button>
           <button
-            disabled={!name.trim()}
-            onClick={() => onSubmit(name.trim())}
+            disabled={!name.trim() || submitting}
+            onClick={handleSubmit}
           >
-            Submit
+            {submitting ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </div>
