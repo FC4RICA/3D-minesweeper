@@ -18,7 +18,13 @@ export const useLeaderboard = () => {
   }, [])
 
   const submitScore = useCallback(async (name, time, difficulty) => {
-    await supabase.from('leaderboard').insert({ name, time, difficulty })
+    const { error } = await supabase
+      .from('leaderboard')
+      .upsert(
+        { name, time, difficulty },
+        { onConflict: 'name,time,difficulty', ignoreDuplicates: true }
+      )
+    return error
   }, [])
 
   return { scores, loading, fetchScores, submitScore }
